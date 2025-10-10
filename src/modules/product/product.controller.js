@@ -32,3 +32,19 @@ export const getProductById=async(req,res,next)=>{
         product
     })
 }
+export const updateProduct=async(req,res,next)=>{
+    const id=req.params.id
+    const product=await service.updateProduct(id,req.body)
+    return res.status(200).json({
+        message:"update product",
+        product
+    })
+}
+export const deleteProduct=async(req,res,next)=>{
+    const id=req.params.id
+    const product=await service.deleteProduct(id)
+    return res.status(200).json({
+        message:"delete product",
+        product
+    })
+}  
