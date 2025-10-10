@@ -14,3 +14,6 @@ export const getAll=async(limit,skip)=>{
         results:products
     }
 }
+export const getProductById=async(id)=>{
+    return await ProductModel.findById(id).populate("category","name -_id").populate("subCategory","name -_id").lean()
+}

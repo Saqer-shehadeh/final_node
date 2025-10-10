@@ -22,4 +22,5 @@ validate(schemas.create)
 )
 
 productRouter.get("/getAll",asyncHandler(controller.getAll))
+productRouter.get("/:id",asyncHandler(controller.getProductById))
 export default productRouter

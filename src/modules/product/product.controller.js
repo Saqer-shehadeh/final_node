@@ -23,3 +23,12 @@ export const getAll=async(req,res,next)=>{
         allProducts
     })
 }
+export const getProductById=async(req,res,next)=>{
+    const id=req.params.id
+    const product=await service.getProductById(id)
+
+    return res.status(200).json({
+        message:"success",
+        product
+    })
+}
