@@ -20,6 +20,7 @@ if(!subCategory)throw new AppError("invalid subCategory for this category",400)
 
 export const getAll=async(page,limit,skip)=>{
 const products= await data.getAll(limit,skip);
+if(products.count===0)throw new AppError("no products found",404)
 const paginated=getPagingData(products,page,limit)
 return paginated
 }
