@@ -2,7 +2,15 @@
 export const validate = (schema) => {
     return (req, res, next) => {
         try {
-            const data = { ...req.body, ...req.params, ...req.query, image: req.file };
+            const data = {};
+            if(req.file){
+                data={image:req.file, ...body, ...req.params, ...req.query}
+            }else if(req.files){
+                data={...req.files, ...req.body, ...req.params, ...req.query}
+            }else{
+                data = { ...req.body, ...req.params, ...req.query }
+            }
+
             const { error: errors } = schema.validate(data, {
                 abortEarly: false,
                 errors: {
@@ -12,15 +20,15 @@ export const validate = (schema) => {
 
                 }
             })
-            if(errors){
-                const formatted=errors.details.map((detail)=>({
-                    field:detail.path.join("."),
-                    message:detail.message
+            if (errors) {
+                const formatted = errors.details.map((detail) => ({
+                    field: detail.path.join("."),
+                    message: detail.message
                 }))
                 return res.status(400).json({
-                   status:"validation_error",
-                   formatted
-               })
+                    status: "validation_error",
+                    formatted
+                })
             }
             next();
         } catch (error) {
