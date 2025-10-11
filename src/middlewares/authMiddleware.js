@@ -7,12 +7,11 @@ import JWT from "jsonwebtoken"
 
     return async(req,res,next)=>{
         try {
-                    const token=req.headers.authorization;
+            const token=req.headers.authorization;
         if(!token){
             throw new AppError("missing token",402)
         }
         const decode=JWT.verify(token,process.env.JWT_SECRET)
-        console.log(decode);
         
         const user=await findUserByEmail(decode.payload.email)
         if(!user){
@@ -21,7 +20,13 @@ import JWT from "jsonwebtoken"
         if(allowedRoles.length && !allowedRoles.includes(user.role)){
             throw new AppError("access denied")
         }
-        req.user=user        
+        req.user={
+            _id:user._id,
+            userName:user.userName,
+            email:user.email,
+            role:user.role,
+            status:user.status
+        }        
         next();
         } catch (error) {
             if(error.name==="JsonWebTokenError"||error.name==="TokenExpiredError")
