@@ -22,7 +22,7 @@ validate(schemas.create)
 )
 
 productRouter.get("/getAll",asyncHandler(controller.getAll))
-productRouter.get("/:id",asyncHandler(controller.getProductById))
-productRouter.put("/update/:id",asyncHandler(controller.updateProduct))
-productRouter.delete("/delete/:id",asyncHandler(controller.deleteProduct))
+productRouter.get("/:id",validate(schemas.getById),asyncHandler(controller.getProductById))
+productRouter.put("/update/:id",validate(schemas.update),asyncHandler(controller.updateProduct))
+productRouter.delete("/delete/:id",validate(schemas.deleteById),asyncHandler(controller.deleteProduct))
 export default productRouter
