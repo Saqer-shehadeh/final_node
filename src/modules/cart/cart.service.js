@@ -39,3 +39,18 @@ export const addToCart=async(id,body)=>{
         message:"product added to cart",
     }
 }
+export const getMyCart=async(id)=>{
+    const cart=await data.getMyCart(id)
+    if(!cart){
+        return {
+            message:"cart is empty",
+        }
+    }
+    return cart
+
+}
+export const clearCart=async(id)=>{
+  
+    return await data.clearCart(id)
+
+}

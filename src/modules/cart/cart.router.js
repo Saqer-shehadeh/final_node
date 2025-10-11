@@ -7,8 +7,8 @@ import ROLES from "../../../dataBase/roles.js"
 const cartRouter=express.Router()
 
 cartRouter.post("/add",authenticateJWT([ROLES.USER]),asyncHandler(controller.addToCart))
-
-
+cartRouter.get("/mycart",authenticateJWT([ROLES.USER]),asyncHandler(controller.getMyCart))
+cartRouter.delete("/clear",authenticateJWT([ROLES.USER]),asyncHandler(controller.clearCart))
 
 
 
