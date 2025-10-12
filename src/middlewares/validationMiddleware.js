@@ -2,7 +2,7 @@
 export const validate = (schema) => {
     return (req, res, next) => {
         try {
-            const data = {};
+            let data = {};
             if(req.file){
                 data={image:req.file, ...body, ...req.params, ...req.query}
             }else if(req.files){

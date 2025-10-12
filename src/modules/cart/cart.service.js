@@ -1,4 +1,5 @@
 import areAtributesSame from "../../utils/areAttributesSame.js"
+import { getProductById } from "../product/product.data.js"
 import * as data from "./cart.data.js"
 
 
@@ -17,9 +18,7 @@ export const addToCart=async(id,body)=>{
             product.productId.toString()===body.productId.toString()&&
             areAtributesSame(product.attributes,body.attributes)
         )
-    })
-    console.log(productIndex);
-    
+    })    
     if(productIndex>-1){
         
         cart.products[productIndex].qnt+=1;
@@ -54,3 +53,20 @@ export const clearCart=async(id)=>{
     return await data.clearCart(id)
 
 }
+export const updateQuantity=async(id,productId,qnt)=>{ 
+    if (qnt<=0){
+        return {
+            message:"quantity must be greater than 0",
+        }
+    }else{
+        const updated=await data.updateQuantity(id,productId,qnt)
+        return updated.modifiedCount>0
+
+    }
+}
+export const removeFromCart=async(id,productId)=>{
+        const deleted=await data.removeFromCart(id,productId)
+        return deleted.modifiedCount>0
+}
+
+

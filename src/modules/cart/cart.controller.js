@@ -1,3 +1,4 @@
+import mongoose from "mongoose"
 import * as service from "./cart.service.js"
 
 
@@ -27,4 +28,24 @@ export const clearCart=async(req,res)=>{
         result
     })
 
+}
+
+export const updateQuantity=async(req,res)=>{
+    const{_id}=req.user
+    const data=req.body    
+    const result=await service.updateQuantity(_id,data.productId,data.qnt)    
+    res.status(200).json({
+        message:result?"update quantity":"no cart found",
+        result
+    })
+}
+
+export const removeFromCart=async(req,res)=>{
+    const{_id}=req.user
+    const data=req.body
+    const result=await service.removeFromCart(_id,data.productId)
+    res.status(200).json({
+        message:result?"product removed from cart":"no cart found",
+        result
+    })
 }

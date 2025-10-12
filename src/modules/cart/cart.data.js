@@ -21,3 +21,13 @@ export const clearCart = async (id) => {
         $set: { products: [] }
     })
 }
+export const updateQuantity = async (userId, productIndex, qnt) => {
+    return await CartModel.updateOne({ userId: userId ,"products._id":productIndex},{
+        $set: { "products.$.qnt": qnt }
+    })
+};
+export const removeFromCart=async(userId,productId)=>{
+    return await CartModel.updateOne({userId:userId},{
+        $pull:{products:{_id:productId}}
+    })
+}
