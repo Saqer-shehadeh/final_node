@@ -10,6 +10,10 @@ const productInCartSchema = new mongoose.Schema({
         type: Number,
         default: 1
     },
+    price :{
+        type:Number,
+        required:true
+    },
       attributes:[{
             name:{type:String,required:true},
             value:

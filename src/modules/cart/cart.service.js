@@ -1,10 +1,19 @@
 import areAtributesSame from "../../utils/areAttributesSame.js"
 import { getProductById } from "../product/product.data.js"
 import * as data from "./cart.data.js"
-
+import {AppError} from "../../utils/AppError.js"
 
 export const addToCart=async(id,body)=>{
     const cart =await data.findCartByUserId(id)
+    const product=await getProductById(body.productId)
+    if(!product){
+        throw new AppError(404,"product not found")
+    }
+    if(product.discount){
+        body.price=product.finalPrice
+    }else{
+        body.price=product.price
+    }
     if(!cart){
         const newCart=await data.createCart(id,body)
         return {
