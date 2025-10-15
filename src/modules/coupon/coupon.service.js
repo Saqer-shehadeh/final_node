@@ -11,3 +11,16 @@ return {
     coupon
 }
 }
+
+export const getAllCoupons=async()=>{
+    const coupons=await data.getAllCoupons()
+    return coupons
+}
+export const updateCoupon=async(id,body)=>{
+    const coupon=await data.updateCoupon(id,body)
+    return coupon
+}
+export const deleteCoupon=async(id)=>{
+    await data.deleteCoupon(id)
+    return 
+}
