@@ -12,6 +12,9 @@ const init=(express,app)=>{
     app.use(express.json())
     app.use("/api/category",categoryRouter)
     app.use("/uploads",express.static("uploads"))
+    app.get("/",(req,res)=>{
+        res.json({message:"Server is running"})
+    })
     app.use("/api/auth",authrouter)
     app.use("/api/subcategories",subCategoriesRouter)
     app.use("/api/product",productRouter)
