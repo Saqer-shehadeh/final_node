@@ -8,8 +8,15 @@ import favoriteRouter from "../modules/favorite/favorite.router.js"
 import orderRouter from "../modules/order/order.router.js"
 import couponRouter from "../modules/coupon/coupon.router.js"
 import reviewRouter from "../modules/review/review.router.js"
+import cors from "cors"
 const init=(express,app)=>{
     app.use(express.json())
+    app.use(cors(
+        {
+            origin:"http://localhost:5500",
+            credentials:true,  
+        }
+    ))
     app.use("/api/category",categoryRouter)
     app.use("/uploads",express.static("uploads"))
     app.get("/",(req,res)=>{

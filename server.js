@@ -8,9 +8,10 @@ const app=express()
 
 init(express,app)
 
+const PORT=process.env.PORT||3000
 connectDB().then(()=>{
-    app.listen(3000,()=>{
-        console.log("running on port 4000");
+    app.listen(PORT,()=>{
+        console.log("running on port 3000");
         
     })
 })
