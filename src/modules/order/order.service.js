@@ -1,13 +1,26 @@
 import { AppError } from "../../utils/AppError.js"
 import { getPagingData } from "../../utils/pagination.js/pagination.js"
 import { clearCart, getMyCart } from "../cart/cart.data.js"
+import { getCouponByCode } from "../coupon/coupon.data.js"
 import * as data from "./order.data.js"
-export const createOrder=async(_id,address,phone,paymentType,coupon)=>{
+export const createOrder=async(_id,address,phone,paymentType,couponCode)=>{
     const cart=await getMyCart(_id)
     if(!cart||cart.products.length===0){
         return {
             message:"cart is empty",
         }
+    }
+    let coupon=null;
+    if(couponCode){
+        coupon=await getCouponByCode(couponCode)
+        if(!coupon || coupon.status!=="active"){
+            throw new AppError(404,"invalid coupon or inactive")
+        }
+        const currentDate=new Date()
+        if(currentDate>new Date(coupon.validUntil) || currentDate<new Date(coupon.validFrom)){
+            throw new AppError("coupon expired or not yet active",400)
+        }
+
     }
     let totalPrice=0
     const products=cart.products.map((product)=>{
@@ -20,6 +33,11 @@ export const createOrder=async(_id,address,phone,paymentType,coupon)=>{
             finalPrice:itemTotal
         }
     })
+
+    if(coupon){
+        totalPrice=totalPrice-(totalPrice*(coupon.discount/100))
+        if(totalPrice<0) totalPrice=0
+    }
     const order=await data.createOrder({
         userId:_id,
         products,
@@ -27,6 +45,7 @@ export const createOrder=async(_id,address,phone,paymentType,coupon)=>{
         address,
         phone,
         paymentType,
+        coupon:coupon?._id,
     })
     await clearCart(_id)
     return{

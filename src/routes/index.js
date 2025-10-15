@@ -6,6 +6,7 @@ import subCategoriesRouter from "../modules/subcategory/subcategory.router.js"
 import cartRouter from "../modules/cart/cart.router.js"
 import favoriteRouter from "../modules/favorite/favorite.router.js"
 import orderRouter from "../modules/order/order.router.js"
+import couponRouter from "../modules/coupon/coupon.router.js"
 const init=(express,app)=>{
     app.use(express.json())
     app.use("/api/category",categoryRouter)
@@ -16,6 +17,7 @@ const init=(express,app)=>{
     app.use("/api/cart",cartRouter)
     app.use("/api/favorite",favoriteRouter)
     app.use("/api/order",orderRouter)
+    app.use("/api/coupon",couponRouter)
     app.use(globalErrorHandler)
 }
 
