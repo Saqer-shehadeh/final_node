@@ -26,15 +26,24 @@ npm run dev            # تشغيل بصلاحيات التطوير
 
 ## 🔧 Environment (.env)
 
-Create a `.env` file in the **project root** with the following variables:
+Create a `.env` file in the **project root directory** and add the following variables:
 
 ```env
 PORT=3000
-MONGO_URI=mongodb://127.0.0.1:27017/ecommerce
-JWT_SECRET=change_me
-JWT_EXPIRES_IN=7d
-CORS_ORIGIN=*
-UPLOAD_DIR=uploads
+
+# Database Configuration (MySQL)
+DB_HOST=localhost
+DB_NAME=ecommerce
+DB_USER=root
+DB_PASS=
+DB_DIALECT=mysql
+
+# JWT Configuration
+JWT_SECRET=your_jwt_secret_key
+
+# Email Configuration 
+EMAIL=example@gmail.com
+EMAIL_PASS=your_email_password
 ```
 
 ## Postman collection:
