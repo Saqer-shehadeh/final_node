@@ -8,9 +8,8 @@ Backend for an e-commerce system covering auth (JWT), products, categories, coup
 - Coupons & Discount logic
 - Cart & Orders (with final price, totals)
 - Image upload (multer) + validation
-- Pagination, filtering, sorting
+- Pagination
 - Centralized error handling & request validation
-- Basic security setup (Helmet, CORS)
 
 ## 🧱 Tech Stack
 Node.js, Express.js, MongoDB (Mongoose), JWT, Multer, Joi/Zod, Winston/Morgan
@@ -29,21 +28,21 @@ npm run dev            # تشغيل بصلاحيات التطوير
 Create a `.env` file in the **project root directory** and add the following variables:
 
 ```env
+# MongoDB Connection
+DBString=mongodb://localhost:27017/
+# DBString=mongodb+srv://username:password@cluster.mongodb.net/
+
+# Server Configuration
 PORT=3000
 
-# Database Configuration (MySQL)
-DB_HOST=localhost
-DB_NAME=ecommerce
-DB_USER=root
-DB_PASS=
-DB_DIALECT=mysql
-
-# JWT Configuration
+# Security
+SALT=10
 JWT_SECRET=your_jwt_secret_key
 
-# Email Configuration 
-EMAIL=example@gmail.com
-EMAIL_PASS=your_email_password
+# Email Configuration
+EMAIL_USER=example@gmail.com
+EMAIL_PASS=your_app_password
+
 ```
 
 ## Postman collection:
